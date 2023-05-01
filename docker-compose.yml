@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  php-apache-environment:
+    build:
+     context: ./php
+     dockerfile: Dockerfile
+    container_name: php-apache-pdi
+    image: php:8.1.18-apache
+    ports:
+     - 7077:80
+  db:
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile
+    container_name: db_sing_redlock
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+        MYSQL_ROOT_PASSWORD: AB
+        MYSQL_DATABASE: redlock-db
+        MYSQL_USER: ayb
+        MYSQL_PASSWORD: AB
+    ports:
+        - 4444:3306
